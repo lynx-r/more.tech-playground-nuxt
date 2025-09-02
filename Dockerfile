@@ -23,4 +23,4 @@ WORKDIR /app
 COPY --from=builder --chown=node:node /app/.output ./.output
 
 # EXPOSE 3000
-CMD ['node', './.output/server/index.mjs']
+CMD ["node", "./.output/server/index.mjs"]
