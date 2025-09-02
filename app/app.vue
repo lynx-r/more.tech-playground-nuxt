@@ -1,6 +1,18 @@
+<script setup lang="ts">
+useHead({
+  title: "Megalit More.tech",
+  meta: [
+    {
+      name: "description",
+      content: "Megalit приложение для хакатона More.Tech",
+    },
+  ],
+});
+</script>
+
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+  <UApp>
+    <NuxtLoadingIndicator />
+    <NuxtPage />
+  </UApp>
 </template>
