@@ -1,10 +1,11 @@
 # build stage
 FROM node:lts-alpine AS builder
 
+RUN npm install -g pnpm
+
 USER node
 WORKDIR /app
 
-RUN npm install -g pnpm
 
 COPY --chown=node:node . .
 RUN pnpm install --frozen-lockfile && pnpm run build
