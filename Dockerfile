@@ -1,18 +1,26 @@
 # build stage
 FROM node:lts-alpine AS build-stage
 
+USER node
 WORKDIR /app
 
 RUN npm install -g pnpm
 
-COPY . .
+COPY --chown=node:node . .
 RUN pnpm install --frozen-lockfile && pnpm run build
 
 # production stage
 FROM nginx:stable-alpine AS production-stage
 
-COPY --from=build-stage /app/.output /usr/share/nginx/html
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+ENV VITE_IAM_TOKEN=${VITE_IAM_TOKEN}
+ENV VITE_YANDEX_GPT_URL=${VITE_YANDEX_GPT_URL}
+ENV VITE_YANDEX_FOLDER=${VITE_YANDEX_FOLDER}
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+USER node
+WORKDIR /app
+# COPY --from=builder --chown=node:node /app/package*.json .
+# COPY --from=builder --chown=node:node /app/node_modules/ ./node_modules
+COPY --from=builder --chown=node:node /app/.output ./.output
+
+EXPOSE 3000
+CMD ['node', '.output/server/index.mjs']
