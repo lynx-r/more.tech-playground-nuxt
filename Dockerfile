@@ -1,5 +1,5 @@
 # build stage
-FROM node:lts-alpine AS build-stage
+FROM node:lts-alpine AS builder
 
 USER node
 WORKDIR /app
