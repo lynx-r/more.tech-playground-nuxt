@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
-import useMySpeechRecognition from "./composibals/useMySpeechRecognition";
-import useMySpeechSynthesis from "./composibals/useMySpeechSynthesis";
+import useMySpeechRecognition from "~/composibals/useMySpeechRecognition";
+import useMySpeechSynthesis from "~/composibals/useMySpeechSynthesis";
 import type { Chat, ChatMessage } from "@/types";
 
 const synthesis = useMySpeechSynthesis();
